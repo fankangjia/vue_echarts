@@ -8,8 +8,8 @@
     ></clock>
     <Block
     left-title='统计数据'
-    block-height='600px'
-    block-width='600px'
+    block-height='650px'
+    block-width='650px'
     block-left='50px'
     block-top='-145px'
     ></Block>

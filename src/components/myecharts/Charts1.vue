@@ -1,5 +1,5 @@
 <template>
-  <div id='myChart' style="height: 37.5rem;width: 37.5rem;"></div>
+  <div id='myChart' :style="{ width: blockWidth, height: blockHeight}"></div>
 </template>
 
 <script>
@@ -8,11 +8,27 @@
 import echarts from 'echarts'
  export default {
     name: 'Charts1',
+    props: {
+      blockWidth: {
+        type: String,
+        default: '200px'
+      },
+      blockHeight: {
+        type: String,
+        default: '200px'
+      },
+    },
     data () {
       return {
         echarts1_option:{
           //这里写数据表的定义
             tooltip: {},
+            grid:{
+              x:20,
+              y:20,
+              x2:20,
+              y2:50
+            },
             xAxis: {
                 data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
             },

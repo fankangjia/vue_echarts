@@ -9,7 +9,10 @@
       <span>{{leftTitle}}</span>
       <b class="data-title-right">]</b>
     </div>
-    <charts1></charts1>
+    <charts1
+    :block-height='blockHeight'
+    :block-width='blockWidth'
+    ></charts1>
   </div>
 
 </template>
