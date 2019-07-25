@@ -12,18 +12,20 @@
     block-left='15px'
     block-top='-170px'
     >
-      <charts1
-      block-height='305px'
-      block-width='400px'
-      ></charts1>
+
     </Block>
     <Block
-    left-title='历年统计数据左二'
+    left-title='报修频率前五'
     block-height='285px'
     block-width='400px'
     block-left='15px'
     block-top='-140px'
-    ></Block>
+    >
+      <charts2
+      block-height='285px'
+      block-width='400px'
+      ></charts2>
+    </Block>
     <Block
     left-title='历年统计数据中一'
     block-height='385px'
@@ -44,7 +46,12 @@
     block-width='400px'
     block-left='1095px'
     block-top='-1230px'
-    ></Block>
+    >
+      <charts1
+      block-height='185px'
+      block-width='400px'
+      ></charts1>
+    </Block>
     <Block
     left-title='历年统计数据右二'
     block-height='305px'
@@ -60,6 +67,7 @@
 import Header from './components/Header'
 import Block from './components/Block'
 import Charts1 from './components/myecharts/Charts1'
+import Charts2 from './components/myecharts/Charts2'
 import Clock from 'vue-clock2'
 export default {
   name: 'App',
@@ -67,7 +75,8 @@ export default {
     Header,
     Block,
     Clock,
-    Charts1
+    Charts1,
+    Charts2
   }
 }
 </script>
