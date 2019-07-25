@@ -11,7 +11,12 @@
     block-width='400px'
     block-left='15px'
     block-top='-170px'
-    ></Block>
+    >
+      <charts1
+      block-height='305px'
+      block-width='400px'
+      ></charts1>
+    </Block>
     <Block
     left-title='历年统计数据左二'
     block-height='285px'
@@ -54,13 +59,15 @@
 <script>
 import Header from './components/Header'
 import Block from './components/Block'
-import Clock from 'vue-clock2';
+import Charts1 from './components/myecharts/Charts1'
+import Clock from 'vue-clock2'
 export default {
   name: 'App',
   components: {
     Header,
     Block,
-    Clock
+    Clock,
+    Charts1
   }
 }
 </script>

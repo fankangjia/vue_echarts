@@ -9,21 +9,14 @@
       <span id="chartitle">{{leftTitle}}</span>
       <b class="data-title-right">]</b>
     </div>
-    <charts1
-    :block-height='blockHeight'
-    :block-width='blockWidth'
-    ></charts1>
+    <slot></slot>
   </div>
 
 </template>
 
 <script>
- import Charts1 from './myecharts/Charts1'
  export default {
    name: 'Block',
-   components: {
-     Charts1
-   },
    props: {
      leftTitle: {
        type: String,
