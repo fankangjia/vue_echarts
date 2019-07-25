@@ -50,8 +50,7 @@
      return {
        mytextwidth: function(){
          return this.leftTitle.length*30+30+'px'
-       },
-       leftTitle:''
+       }
      }
    },
    watch:{
