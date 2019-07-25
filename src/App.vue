@@ -1,17 +1,51 @@
 <template>
   <div id="app">
     <Header/>
-    <clock :time="time"
-    style="right: -590px;top: -90px;"
-    size="165px"
+    <clock id="clock"
+    size="150px"
     color="#26c6f0"
     ></clock>
     <Block
-    left-title='统计数据'
-    block-height='650px'
-    block-width='650px'
-    block-left='50px'
-    block-top='-145px'
+    left-title='历年统计数据左一'
+    block-height='285px'
+    block-width='400px'
+    block-left='15px'
+    block-top='-150px'
+    ></Block>
+    <Block
+    left-title='历年统计数据左二'
+    block-height='285px'
+    block-width='400px'
+    block-left='15px'
+    block-top='-120px'
+    ></Block>
+    <Block
+    left-title='历年统计数据中一'
+    block-height='385px'
+    block-width='620px'
+    block-left='445px'
+    block-top='-705px'
+    ></Block>
+    <Block
+    left-title='历年统计数据中二'
+    block-height='170px'
+    block-width='620px'
+    block-left='445px'
+    block-top='-675px'
+    ></Block>
+    <Block
+    left-title='历年统计数据'
+    block-height='185px'
+    block-width='400px'
+    block-left='1095px'
+    block-top='-1210px'
+    ></Block>
+    <Block
+    left-title='历年统计数据右二'
+    block-height='305px'
+    block-width='400px'
+    block-left='1095px'
+    block-top='-1180px'
     ></Block>
   </div>
 </template>
@@ -29,7 +63,6 @@ export default {
     Clock
   }
 }
-
 </script>
 
 <style>
@@ -41,5 +74,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 10px;
-};
+}
+#app > #clock{
+  right: -535px;
+  top: -90px;
+}
 </style>

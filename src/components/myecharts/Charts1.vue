@@ -24,10 +24,10 @@ import echarts from 'echarts'
           //这里写数据表的定义
             tooltip: {},
             grid:{
-              x:20,
-              y:20,
-              x2:20,
-              y2:50
+              // x:20,
+              // y:20,
+              // x2:20,
+              // y2:50
             },
             xAxis: {
                 data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
@@ -38,15 +38,16 @@ import echarts from 'echarts'
                 type: 'bar',
                 data: [5, 20, 36, 10, 10, 20]
             }]
-        }
+        },
+        chartcontainer:''
       }
     },
     //挂载前初始化echarts实例
     mounted: function () {
       // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById('myChart'))
+      this.chartcontainer = echarts.init(document.getElementById('myChart'),'light')
       // 绘制图表，this.echarts1_option是数据
-      myChart.setOption(this.echarts1_option)
+      this.chartcontainer.setOption(this.echarts1_option)
     },
  }
 </script>
