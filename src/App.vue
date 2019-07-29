@@ -6,59 +6,64 @@
     color="#26c6f0"
     ></clock>
     <Block
-    left-title='历年统计数据左一'
+    left-title='出警次数前五'
     block-height='305px'
-    block-width='400px'
+    block-width='380px'
     block-left='15px'
     block-top='-170px'
     >
-
+    <charts3
+    block-height='305px'
+    block-width='380px'
+    ></charts3>
     </Block>
     <Block
     left-title='报修频率前五'
     block-height='285px'
-    block-width='400px'
+    block-width='380px'
     block-left='15px'
     block-top='-140px'
     >
       <charts2
       block-height='285px'
-      block-width='400px'
+      block-width='380px'
       ></charts2>
     </Block>
     <Block
-    left-title='历年统计数据中一'
+    left-title='报修预约状况分布'
     block-height='385px'
-    block-width='620px'
-    block-left='445px'
+    block-width='640px'
+    block-left='425px'
     block-top='-725px'
     ></Block>
     <Block
-    left-title='历年统计数据中二'
-    block-height='170px'
-    block-width='620px'
-    block-left='445px'
+    left-title='报修预约状况走势'
+    block-height='220px'
+    block-width='640px'
+    block-left='425px'
     block-top='-695px'
     ></Block>
     <Block
-    left-title='历年统计数据'
-    block-height='185px'
+    left-title='今日维修预约概况'
+    block-height='215px'
     block-width='400px'
     block-left='1095px'
-    block-top='-1230px'
+    block-top='-1270px'
     >
-      <charts1
-      block-height='185px'
-      block-width='400px'
-      ></charts1>
+
     </Block>
     <Block
-    left-title='历年统计数据右二'
-    block-height='305px'
+    left-title='历年预约总数据统计'
+    block-height='285px'
     block-width='400px'
     block-left='1095px'
-    block-top='-1200px'
-    ></Block>
+    block-top='-1240px'
+    >
+    <charts1
+    block-height='285px'
+    block-width='400px'
+    ></charts1>
+    </Block>
   </div>
 </template>
 
@@ -68,6 +73,7 @@ import Header from './components/Header'
 import Block from './components/Block'
 import Charts1 from './components/myecharts/Charts1'
 import Charts2 from './components/myecharts/Charts2'
+import Charts3 from './components/myecharts/Charts3'
 import Clock from 'vue-clock2'
 export default {
   name: 'App',
@@ -76,7 +82,8 @@ export default {
     Block,
     Clock,
     Charts1,
-    Charts2
+    Charts2,
+    Charts3
   }
 }
 </script>
@@ -89,7 +96,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 750px;
+  height: 850px;
   margin-top: 10px;
 }
 #app > #clock{

@@ -6,6 +6,7 @@
 
 //先要导入依赖的实例
 import echarts from 'echarts'
+import axios from 'axios'
  export default {
     name: 'Charts1',
     props: {
@@ -21,79 +22,114 @@ import echarts from 'echarts'
     data () {
       return {
         echarts1_option:{
-          title: {
-              text: '折线图堆叠'
-          },
-          textStyle: {
-              color: 'rgba(38, 198, 248, 1)'
-          },
-          tooltip: {
-              trigger: 'axis'
-          },
-          legend: {
-              data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
-          },
-          grid: {
-              left: '3%',
-              right: '4%',
-              bottom: '3%',
-              containLabel: true
-          },
-          toolbox: {
-              feature: {
-                  saveAsImage: {}
+           tooltip : {
+              trigger: 'axis',
+              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
               }
-          },
-          xAxis: {
+            },
+            graid:{
+              x:'20%',
+              x2:'10%',
+            },
+            textStyle: {
+                color: 'rgba(38, 198, 248, 1)'
+            },
+            legend: {
+              data: ['上午', '下午'],
+              textStyle: {
+                  color: 'rgba(38, 198, 248, 1)'
+              }
+            },
+            xAxis:  {
+              type: 'value',
+              position: 'bottom',
+            },
+            yAxis: {
+              inverse:true,
               type: 'category',
-              boundaryGap: false,
-              data: ['周一','周二','周三','周四','周五','周六','周日']
-          },
-          yAxis: {
-              type: 'value'
-          },
-          series: [
-              {
-                  name:'邮件营销',
-                  type:'line',
-                  stack: '总量',
-                  data:[120, 132, 101, 134, 90, 230, 210]
-              },
-              {
-                  name:'联盟广告',
-                  type:'line',
-                  stack: '总量',
-                  data:[220, 182, 191, 234, 290, 330, 310]
-              },
-              {
-                  name:'视频广告',
-                  type:'line',
-                  stack: '总量',
-                  data:[150, 232, 201, 154, 190, 330, 410]
-              },
-              {
-                  name:'直接访问',
-                  type:'line',
-                  stack: '总量',
-                  data:[320, 332, 301, 334, 390, 330, 320]
-              },
-              {
-                  name:'搜索引擎',
-                  type:'line',
-                  stack: '总量',
-                  data:[820, 932, 901, 934, 1290, 1330, 1320]
+              data: ['滨湖一','滨湖二','包河区'],
+              nameLocation: 'start',
+              nameGap: 30,
+              axisLabel:{
+                rotate:-90
               }
-          ]
+            },
+            dataZoom: [
+              { // 第一个 dataZoom 组件
+                type:'inside',
+                yAxisIndex: [0],// 表示这个 dataZoom 组件控制 第一个 和 第三个 yAxis
+                filterMode: 'filter',
+                startValue: 0,
+                endValue: 4,
+              },
+            ],
+            series: [
+              {
+                name: '上午',
+                type: 'bar',
+                "stack": '1',
+                label: {
+                  normal: {
+                    show: true,
+                    position: 'insideRight'
+                  }
+                },
+                data: []
+              },
+              {
+                name: '下午',
+                type: 'bar',
+                stack: '1',
+                label: {
+                  normal: {
+                    show: true,
+                    position: 'insideRight'
+                  }
+                },
+                data: []
+              }
+            ]
         },
-        chartcontainer:''
+        chartcontainer:'',
+        chartData:[]
+      }
+    },
+    watch: {
+      chartData(newValue, oldValue) {
+        this.chartcontainer.setOption({
+          series : [
+                {
+                  data:newValue[0]
+                },
+                {
+                  data:newValue[1]
+                }
+            ]
+        })
+      }
+    },
+    methods: {
+      seriesDate() {
+        var that = this
+         axios.get('../../../static/data/y2.json')
+         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=aa&m=ns_klny')
+          .then(function (response) {
+            that.chartData=response.data;
+          })
+          .catch(function (error) {
+            console.log(error)
+          });
       }
     },
     //挂载前初始化echarts实例
     mounted: function () {
       // 基于准备好的dom，初始化echarts实例
-      this.chartcontainer = echarts.init(document.getElementById('myChart1'),'light')
+      this.chartcontainer = echarts.init(document.getElementById('myChart1'))
       // 绘制图表，this.echarts1_option是数据
       this.chartcontainer.setOption(this.echarts1_option)
+      //调用异步方法获取数据
+      this.seriesDate()
     },
  }
 </script>
