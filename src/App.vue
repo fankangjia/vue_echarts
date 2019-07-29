@@ -35,7 +35,12 @@
     block-width='640px'
     block-left='425px'
     block-top='-725px'
-    ></Block>
+    >
+    <charts4
+      block-height='365px'
+      block-width='620px'
+    ></charts4>
+    </Block>
     <Block
     left-title='报修预约状况走势'
     block-height='220px'
@@ -44,13 +49,17 @@
     block-top='-695px'
     ></Block>
     <Block
-    left-title='今日维修预约概况'
+    left-title='今日维修预约完成概况'
     block-height='215px'
     block-width='400px'
     block-left='1095px'
     block-top='-1270px'
     >
-
+      <percentbar
+        barwidth='25%'
+        bartext='维修完成'
+      >
+      </percentbar>
     </Block>
     <Block
     left-title='历年预约总数据统计'
@@ -74,6 +83,8 @@ import Block from './components/Block'
 import Charts1 from './components/myecharts/Charts1'
 import Charts2 from './components/myecharts/Charts2'
 import Charts3 from './components/myecharts/Charts3'
+import Charts4 from './components/myecharts/Charts4'
+import percentbar from './components/Bar'
 import Clock from 'vue-clock2'
 export default {
   name: 'App',
@@ -83,7 +94,9 @@ export default {
     Clock,
     Charts1,
     Charts2,
-    Charts3
+    Charts3,
+    Charts4,
+    percentbar
   }
 }
 </script>

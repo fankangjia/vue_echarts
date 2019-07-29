@@ -37,8 +37,8 @@ import axios from 'axios'
                   label: {
                     normal: {
                         textStyle: {
-                            color: 'rgba(38, 198, 248, 1)',
-                            fontSize: 14,
+                            // color: 'rgba(38, 198, 248, 1)',
+                            fontSize: 13,
                             fontWeight: 'bolder'
                         }
                     },
@@ -64,8 +64,8 @@ import axios from 'axios'
     methods: {
       seriesDate() {
         var that = this
-         axios.get('../../../static/data/cjr.json')
-         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=cc&m=ns_klny')
+         // axios.get('../../../static/data/cjr.json')
+         axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=cc&m=ns_klny')
           .then(function (response) {
             that.chartData=response.data;
           })
