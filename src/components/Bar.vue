@@ -1,9 +1,12 @@
 <template>
-  <div class="lanren" :style="{borderColor:barcolor}">
-		<div id="bar" :style="{width:barwidth,background:barcolor}">
-      <!-- {{bartext}} -->{{barwidth}}
+  <div id='barapp'>
+    <div id='bartitle' :style="{color:barcolor}">{{bartext}}</div>
+    <div class="lanren" :style="{borderColor:barcolor}">
+    	<div id="bar" :style="{width:barwidth,background:barcolor}">
+        {{barwidth}}
+      </div>
     </div>
-	</div>
+  </div>
 </template>
 
 <script>
@@ -27,21 +30,35 @@
 </script>
 
 <style scoped>
-    .lanren,#bar{margin:0;
+    .lanren,#bar,#barapp,#bartitle{margin:0;
                 padding:0;
                 list-style:none;
     }
-		.lanren{width: 80%;
+    #barapp{
+      margin: 26px auto;
+      width: 85%;
+    }
+    #bartitle{
+        height: 100%;
+        width: 11%;
+        text-align: center;
+        line-height: 28px;
+        font-size: 16px;
+        float: left;
+    }
+		.lanren{
+            width: 88%;
+            margin-left: 12%;
             border: 1px solid;
-            height: 25px;
-            margin: 20px auto;
+            height: 28px;
             }
 		#bar{ display: block;
           float: left;
           height: 100%;
           text-align: center;
-          line-height: 25px;
-          font-size: 15.5px;;
+          line-height: 28px;
+          font-size: 18px;
           color:#fff;
     }
+
 </style>

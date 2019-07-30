@@ -42,22 +42,41 @@
     ></charts4>
     </Block>
     <Block
-    left-title='报修预约状况走势'
+    left-title='近期预约趋势'
     block-height='220px'
     block-width='640px'
     block-left='425px'
     block-top='-695px'
-    ></Block>
+    >
+    <charts5
+      block-height='235px'
+      block-width='630px'
+    >
+    </charts5>
+    </Block>
     <Block
-    left-title='今日维修预约完成概况'
+    left-title='实时维修预约处理率'
     block-height='215px'
     block-width='400px'
     block-left='1095px'
     block-top='-1270px'
     >
       <percentbar
-        barwidth='25%'
-        bartext='维修完成'
+        :barwidth='bardata.value1'
+        bartext='预约:'
+      >
+      </percentbar>
+      <percentbar
+        :barwidth='bardata.value2'
+        bartext='维修:'
+        barcolor="#ed5a65"
+      >
+      </percentbar>
+
+      <percentbar
+        :barwidth='bardata.value3'
+        bartext='完成:'
+        barcolor="#f9d367"
       >
       </percentbar>
     </Block>
@@ -84,8 +103,10 @@ import Charts1 from './components/myecharts/Charts1'
 import Charts2 from './components/myecharts/Charts2'
 import Charts3 from './components/myecharts/Charts3'
 import Charts4 from './components/myecharts/Charts4'
+import Charts5 from './components/myecharts/Charts5'
 import percentbar from './components/Bar'
 import Clock from 'vue-clock2'
+import axios from 'axios'
 export default {
   name: 'App',
   components: {
@@ -96,7 +117,28 @@ export default {
     Charts2,
     Charts3,
     Charts4,
+    Charts5,
     percentbar
+  },
+  data() {
+    return {
+      bardata: {
+        value1:'25%',
+        value2:'69%',
+        value3:'72%'
+      }
+    }
+  },
+  mounted:function () {
+    let that=this;
+    axios.get('../../../static/data/persent.json')
+    // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=aa&m=ns_klny')
+     .then(function (response) {
+       that.bardata=response.data;
+     })
+     .catch(function (error) {
+       console.log(error)
+     });
   }
 }
 </script>
