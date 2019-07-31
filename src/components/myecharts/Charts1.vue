@@ -28,6 +28,15 @@ import axios from 'axios'
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
               }
             },
+            toolbox: {
+                show : true,
+                orient : 'vertical',
+                left: '80%',
+                top: 'top',
+                feature : {
+                  saveAsImage : {show: true}
+                }
+            },
             graid:{
               x:'20%',
               x2:'10%',
@@ -72,7 +81,11 @@ import axios from 'axios'
                 label: {
                   normal: {
                     show: true,
-                    position: 'insideRight'
+                    position: 'insideRight',
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 1)',
+                        fontSize:'15'
+                    },
                   }
                 },
                 data: []
@@ -84,7 +97,11 @@ import axios from 'axios'
                 label: {
                   normal: {
                     show: true,
-                    position: 'insideRight'
+                    position: 'insideRight',
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 1)',
+                        fontSize:'15'
+                    },
                   }
                 },
                 data: []
@@ -97,6 +114,7 @@ import axios from 'axios'
     },
     watch: {
       chartData(newValue, oldValue) {
+        newValue[1]=newValue[1].map((x)=>String(Number(x)+2000))
         this.chartcontainer.setOption({
           series : [
                 {
@@ -125,7 +143,7 @@ import axios from 'axios'
     //挂载前初始化echarts实例
     mounted: function () {
       // 基于准备好的dom，初始化echarts实例
-      this.chartcontainer = echarts.init(document.getElementById('myChart1'))
+      this.chartcontainer = echarts.init(document.getElementById('myChart1'),'light')
       // 绘制图表，this.echarts1_option是数据
       this.chartcontainer.setOption(this.echarts1_option)
       //调用异步方法获取数据

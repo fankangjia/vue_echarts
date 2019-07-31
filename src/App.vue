@@ -36,6 +36,36 @@
     block-left='425px'
     block-top='-725px'
     >
+    <ul class="data-box1-data clearfix">
+      <li class="data-box1-font1">预约总数</li>
+      <li >
+        <div style="width: 7rem;">
+          <span id="zyy" class="data-box1-panel">50000</span>
+          <span class="data-box1-font1">次</span>
+        </div>
+      </li>
+      <li class="data-box1-font1">报修总数</li>
+      <li >
+        <div style="width: 7rem;">
+          <span id="zbx" class="data-box1-panel">50000</span>
+          <span class="data-box1-font1" >次</span>
+        </div>
+      </li>
+      <li class="data-box1-font1">今日预约</li>
+      <li >
+        <div style="width: 7rem;">
+          <span id="jyy" class="data-box1-panel">50000</span>
+          <span class="data-box1-font1" >次</span>
+        </div>
+      </li>
+      <li class="data-box1-font1">今日报修</li>
+      <li >
+        <div style="width: 7rem;">
+          <span id="jbx" class="data-box1-panel">50000</span>
+          <span class="data-box1-font1" >次</span>
+        </div>
+      </li>
+		</ul>
     <charts4
       block-height='365px'
       block-width='620px'
@@ -62,19 +92,19 @@
     block-top='-1270px'
     >
       <percentbar
-        :barwidth='bardata.value1'
+        :barwidth='bardata[0]'
         bartext='预约:'
       >
       </percentbar>
       <percentbar
-        :barwidth='bardata.value2'
+        :barwidth='bardata[1]'
         bartext='维修:'
         barcolor="#ed5a65"
       >
       </percentbar>
 
       <percentbar
-        :barwidth='bardata.value3'
+        :barwidth='bardata[2]'
         bartext='完成:'
         barcolor="#f9d367"
       >
@@ -122,20 +152,43 @@ export default {
   },
   data() {
     return {
-      bardata: {
-        value1:'25%',
-        value2:'69%',
-        value3:'72%'
-      }
+      bardata: ['25%','69%','72%']
     }
   },
   mounted:function () {
     let that=this;
-    axios.get('../../../static/data/persent.json')
-    // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=aa&m=ns_klny')
+    // axios.get('../../../static/data/persent.json')
+    axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bar&m=ns_klny')
      .then(function (response) {
-       that.bardata=response.data;
-     })
+       document.getElementById('jyy').innerText=response.data[0][0]
+       document.getElementById('jbx').innerText=response.data[1][0]
+       response.data[0]=response.data[0].map(Number)
+       response.data[1]=response.data[1].map(Number)
+       that.bardata=[]
+       if(response.data[0][0]<=0){
+         that.bardata[0]='0%'
+       }else{
+         if(response.data[0][1]<=0){
+           that.bardata[0]='0%'
+         }else{
+           that.bardata[0]=((response.data[0][1]/response.data[0][0])*100).toFixed(1).toString()+'%'
+         }
+       }
+
+
+       if(response.data[1][0]<=0){
+         that.bardata[1]='0%'
+         that.bardata[2]='0%'
+       }else{
+         if(response.data[1][2]<=0&&response.data[1][1]<=0){
+           that.bardata[1]='0%'
+           that.bardata[2]='0%'
+         }else{
+           that.bardata[1]=(((response.data[1][1]+response.data[1][2])/response.data[1][0])*100).toFixed(1).toString()+'%'
+           that.bardata[0]=((response.data[1][2]/response.data[1][0])*100).toFixed(1).toString()+'%'
+         }
+       }
+            })
      .catch(function (error) {
        console.log(error)
      });
@@ -157,5 +210,18 @@ export default {
 #app > #clock{
   right: -535px;
   top: -90px;
+}
+.data-box1-data{
+  display: inline-block;
+  position: absolute;
+  left: 0.5rem;
+  top: 1.5rem;
+  width: 6rem;
+}
+.data-box1-font1{
+  font-size: 1.25rem;
+}
+.data-box1-panel{
+  font-size: 1.25rem;
 }
 </style>

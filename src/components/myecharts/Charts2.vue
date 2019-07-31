@@ -26,6 +26,15 @@ import axios from 'axios'
               trigger: 'item',
               formatter: "{a} <br/>{b}: {c} ({d}%)"
           },
+          toolbox: {
+              show : true,
+              orient : 'vertical',
+              left: '80%',
+              top: 'top',
+              feature : {
+                saveAsImage : {show: true}
+              }
+          },
           legend: {
               orient: 'vertical',
               x: 'left',

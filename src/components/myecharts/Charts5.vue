@@ -41,11 +41,14 @@ import axios from 'axios'
               }
           },
           toolbox: {
-              show : true,
-              feature : {
-                  saveAsImage : {show: true}
-              }
-          },
+              show : true,
+              orient : 'vertical',
+              left: '90%',
+              top: 'top',
+              feature : {
+                saveAsImage : {show: true}
+              }
+          },
           calculable : true,
           xAxis : [
               {
@@ -101,10 +104,10 @@ import axios from 'axios'
                   data:newValue[1].map(Number)
                 },
                 {
-                  data:newValue[2].map(Number)
+                  data:newValue[3].map(Number)
                 },
                 {
-                  data:newValue[3].map(Number)
+                  data:newValue[2].map(Number)
                 }
             ]
         })

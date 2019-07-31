@@ -28,17 +28,14 @@ import axios from 'axios'
           },
           renderer: 'canvas',
           toolbox: {
-                  show : true,
-                   orient : 'vertical',
-                  left: 'right',
-                  top: 'top',
-                  feature : {
-                    mark : {show: true},
-                    dataView : {show: true, readOnly: false},
-                    restore : {show: true},
-                    saveAsImage : {show: true}
-                }
-            },
+              show : true,
+              orient : 'vertical',
+              left: '90%',
+              top: 'top',
+              feature : {
+                saveAsImage : {show: true}
+              }
+          },
             legend:{
 
                 orient: 'vertical',
@@ -131,6 +128,8 @@ import axios from 'axios'
          axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bb&m=ns_klny')
           .then(function (response) {
             that.chartData=response.data
+            document.getElementById('zyy').innerText=response.data[0].map((x)=>(Number(x.value))).reduce((x,y)=>(x+y)).toString()
+            document.getElementById('zbx').innerText=response.data[1].map((x)=>(Number(x.value))).reduce((x,y)=>(x+y)).toString()
           })
           .catch(function (error) {
             console.log(error)
