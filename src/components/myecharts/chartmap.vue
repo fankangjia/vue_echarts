@@ -1,9 +1,7 @@
 <template>
-  <div style="position: relative;">
-    <div id='chartmap' :style="{ width: blockWidth, height: blockHeight}"></div>
-  </div>
+  <div id='chartmap' style="margin-left: 5px;" :style="{ width: blockWidth, height: blockHeight}"></div>
 </template>
-
+<!-- 几乎已经完成，但是发现数据不对！！！！ -->
 <script>
 
 //先要导入依赖的实例
@@ -24,117 +22,107 @@ import axios from 'axios'
     data () {
       return {
         echarts1_option:{
-              title: {
-                  top:20,
-                  subtext: '',
-                  x: 'center',
-                  textStyle: {
-                      color: '#ccc'
-                  }
-              },
-
-              tooltip: {
-                  trigger: 'item',
-                  formatter: function (params) {
-                    if(typeof(params.value)[2] == "undefined"){
-                      return params.name + ' : ' + params.value;
-                    }else{
-                      return params.name + ' : ' + params.value[2];
-                    }
-                  }
-              },
-              dataRange: {
-                min : 0,
-                max : 500,
-                calculable : true,
-                color: ['#FF0000 ','#FFFF00 ','#00FF00'],
-                //show:false,
-                textStyle:{
-                  color:'red'
-                }
+          title: {
+              top:20,
+              subtext: '',
+              x: 'center',
+              textStyle: {
+                  color: '#ccc'
+              }
           },
-              geo: {
-                  show: true,
-                  map: 'bh',
-                  label: {
-                      normal: {
-                          show: false
-                      },
-                      emphasis: {
-                          show: false,
-                      }
-                  },
 
-                  roam: true,
-                  itemStyle: {
-                      normal: {
-                          areaColor: 'lightgreen',
-                          borderColor: '#3fdaff',
-                          borderWidth: 2,
-                          shadowColor: 'rgba(63, 218, 255, 0.5)',
-                          shadowBlur: 30
-                      },
-                      emphasis: {
-                          areaColor: '#2B91B7',
-                      }
+          tooltip: {
+              trigger: 'item',
+              formatter: function (params) {
+                if(typeof(params.value)[2] == "undefined"){
+                  return params.name + ' : ' + params.value;
+                }else{
+                  return params.name + ' : ' + params.value[2];
+                }
+              }
+          },
+          dataRange: {
+            min : 0,
+            max : 500,
+            calculable : true,
+            color: ['#FF0000 ','#FFFF00 ','#00FF00'],
+            //show:false,
+            textStyle:{
+              color:'red'
+            }
+          },
+          geo: {
+              show: true,
+              map: 'bh',
+              label: {
+                  normal: {
+                      show: false
+                  },
+                  emphasis: {
+                      show: false,
                   }
               },
-              series : [
+
+              roam: true,
+              itemStyle: {
+                  normal: {
+                      areaColor: 'lightgreen',
+                      borderColor: '#3fdaff',
+                      borderWidth: 2,
+                      shadowColor: 'rgba(63, 218, 255, 0.5)',
+                      shadowBlur: 30
+                  },
+                  emphasis: {
+                      areaColor: '#2B91B7',
+                  }
+              }
+          },
+          series : [
+          {
+                name: 'light',
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                data: [],
+
+                label: {
+                    normal: {
+                        formatter: '   {b}',
+                        position: 'right',
+                        show: true
+                    },
+                    emphasis: {
+                        show: true
+                    }
+                }
+            },
             {
-                  name: 'light',
-                  type: 'scatter',
-                  coordinateSystem: 'geo',
-                  data: convertData(data),
 
-                  label: {
-                      normal: {
-                          formatter: '   {b}',
-                          position: 'right',
-                          show: true
-                      },
-                      emphasis: {
-                          show: true
-                      }
-                  },
-                  // itemStyle: {
-                  //     normal: {
-                  //         color: 'green'
-                  //     }
-                  // }
-              },
-              {
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                data: [],
+                symbolSize: function (val) {
+                    return val[2] / 10;
 
-                  type: 'effectScatter',
-                  coordinateSystem: 'geo',
-                  data: convertData(data.sort(function (a, b) {
-                      return b.value - a.value;
-                  }).slice(0, 3)),
-                  symbolSize: function (val) {
-                      return val[2] / 10;
-
-                  },
-                  showEffectOn: 'render',
-                  rippleEffect: {
-                      brushType: 'stroke'
-                  },
-                  hoverAnimation: true,
-                  itemStyle: {
-                      normal: {
-                        color:'orange',
-                          shadowBlur: 5,
-                          shadowColor: '#05C3F9'
-                      }
-                  },
-                  zlevel: 1
-              },
-
+                },
+                showEffectOn: 'render',
+                rippleEffect: {
+                    brushType: 'stroke'
+                },
+                hoverAnimation: true,
+                itemStyle: {
+                    normal: {
+                      color:'orange',
+                        shadowBlur: 5,
+                        shadowColor: '#05C3F9'
+                    }
+                },
+                zlevel: 1
+            }
           ]
         },
         chartcontainer:'',
         chartData:[],
-        flashtimer:'',
         datatimer:'',
-        timer:0,
         geoCoordMap:{ "滨湖一所":[
                             117.3024845123291,
                             31.797859272813007
@@ -152,68 +140,45 @@ import axios from 'axios'
     },
     watch: {
       chartData(newValue, oldValue) {
-        if(oldValue.length===0){
-          this.setChardata()
-        }
-        this.chartData=newValue
-        //把数据设置到图表上去
-        this.changeData()
+        let that=this
+        this.chartcontainer.setOption({
+          series : [
+            {
+                data: that.convertData(that.chartData),
+            },
+            {
+                data: that.convertData(that.chartData.sort(function (a, b) {
+                    return b.value - a.value;
+                }).slice(0, 3)),
+            }
+          ]
+        })
       }
     },
     methods: {
       seriesDate() {
         var that = this
-         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=xx&m=ns_klny')
-         axios.get('../../../static/data/data.json')
+         axios.get('../../../static/data/ditu.json')
+         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=ss&m=ns_klny')
           .then(function (response) {
             that.chartData=response.data;
           })
           .catch(function (error) {
-            console.log('获取数据失败')
+            console.log(error)
           });
       },
-      flashdiv(){
-        if(this.timer==0){
-          document.getElementById('monthbx').classList.remove('choseon')
-          document.getElementById('weekbx').classList.add('choseon')
-          this.timer++
-          this.changeData()
-        }else if(this.timer==1){
-          document.getElementById('weekbx').classList.remove('choseon')
-          document.getElementById('daybx').classList.add('choseon')
-          this.timer++
-          this.changeData()
-        }else{
-          document.getElementById('daybx').classList.remove('choseon')
-          document.getElementById('monthbx').classList.add('choseon')
-          this.timer=0
-          this.changeData()
-        }
-      },
-      changeData(){
-        let that=this
-        this.chartcontainer.setOption({
-          legend: {
-              data:that.chartData[that.timer].map((x)=>x['name'])
-          },
-          series : [{
-                data:that.chartData[that.timer]
-          }]
-        })
-      },
-      setChoseon(chose){
-        document.getElementById('monthbx').classList.remove('choseon')
-        document.getElementById('weekbx').classList.remove('choseon')
-        document.getElementById('daybx').classList.remove('choseon')
-        document.getElementById(chose['name']).classList.add('choseon')
-        this.timer=chose['id']
-        this.changeData()
-      },
-      setChardata(){
-
-        this.changeData()
-        clearInterval(this.flashtimer)
-        this.flashtimer=setInterval(this.flashdiv,5000)
+      convertData(data) {
+         var res = [];
+          for (var i = 0; i < data.length; i++) {
+              var geoCoord = this.geoCoordMap[data[i].name];
+              if (geoCoord) {
+                  res.push({
+                      name: data[i].name,
+                      value: geoCoord.concat(data[i].value)
+                  });
+              }
+          }
+          return res;
       }
     },
     //挂载前初始化echarts实例
@@ -765,51 +730,20 @@ import axios from 'axios'
           ]
       }
       ,{})
-      var self = this
       // 基于准备好的dom，初始化echarts实例
       this.chartcontainer = echarts.init(document.getElementById('chartmap'),'light')
       // 绘制图表，this.echarts1_option是数据
       this.chartcontainer.setOption(this.echarts1_option)
-      //调用异步方法获取数据,并设置10秒刷新一次
+      //调用异步方法获取数据
       this.seriesDate()
-      document.getElementById('monthbx').classList.add('choseon')
+      //设置定时器每十秒自动刷新数据
       this.datatimer=setInterval(this.seriesDate,10000)
-
     },
     beforeDestroy() {
-      clearInterval(this.flashtimer);
-      clearInterval(this.datatimer);
+      clearInterval(this.flashtimer)
     }
  }
 </script>
 
 <style scoped>
-.boxall {
-  /* ul */
-  position: absolute;
-  right: 0.2rem;
-  top: 3.5rem;
-  width: 2rem;
-}
-.boxset {
-  /* li */
-  list-style: none;
-  height: 2rem;
-}
-.boxclick {
-  /* div */
-  width: 100%;
-  height: 100%;
-  margin-top: 0.65rem;
-  border-radius: 25px;
-}
-.boxword {
-  /* a */
-  font-size: 1rem;
-  line-height: 2rem;
-  text-decoration: none;
-}
-.choseon{
-  background-color: rgba(255, 255, 255,.3);
-}
 </style>

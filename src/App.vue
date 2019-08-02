@@ -18,10 +18,10 @@
     </div>
     <div id="box1_top">
       <div id="box2" class="box-echart box-bottom">
-        <charts3
-        block-height='191px'
-        block-width='350px'
-        ></charts3>
+        <chartH5
+        block-height='180px'
+        block-width='320px'
+        ></chartH5>
     </div>
     </div>
     <div class="total-mn" id="total-mn2">
@@ -29,10 +29,10 @@
     </div>
     <div id="box1_bottom">
       <div id="box4" class="box-echart">
-        <charts3
-        block-height='191px'
-        block-width='350px'
-        ></charts3>
+        <chartQ5
+        block-height='150px'
+        block-width='320px'
+        ></chartQ5>
       </div>
     </div>
     </Block>
@@ -148,6 +148,8 @@ import Charts2 from './components/myecharts/Charts2'
 import Charts3 from './components/myecharts/Charts3'
 import Charts4 from './components/myecharts/Charts4'
 import Charts5 from './components/myecharts/Charts5'
+import chartQ5 from './components/myecharts/chartQ5'
+import chartH5 from './components/myecharts/chartH5'
 import percentbar from './components/Bar'
 import Clock from 'vue-clock2'
 import axios from 'axios'
@@ -162,6 +164,8 @@ export default {
     Charts3,
     Charts4,
     Charts5,
+    chartQ5,
+    chartH5,
     percentbar
   },
   data() {
@@ -249,12 +253,20 @@ export default {
   font-size: 0.75rem;
 }
 #box1_top{
+  margin-top: 40px;
   height: 188px;
 }
 #box1_bottom{
+  margin-top: 20px;
   height: 191px;
 }
 #box2{
   height: 100%;
+}
+#box4{
+  margin-left: 0.65rem;
+}
+#topleft{
+  margin-top: 0.3rem;
 }
 </style>
