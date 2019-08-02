@@ -4,71 +4,85 @@
     <clock id="clock"
     size="150px"
     color="#26c6f0"
-    ></clock>
-    <Block
-    left-title='出警次数前五'
-    block-height='305px'
-    block-width='380px'
-    block-left='15px'
-    block-top='-170px'
     >
-    <charts3
-    block-height='305px'
-    block-width='380px'
-    ></charts3>
+    </clock>
+    <Block
+    left-title='出警次数统计'
+    block-height='424px'
+    block-width='350px'
+    block-left='15px'
+    block-top='-190px'
+    >
+    <div class="total-mn" id="total-mn1">
+      <span id="topleft">前五名</span>
+    </div>
+    <div id="box1_top">
+      <div id="box2" class="box-echart box-bottom">
+        <charts3
+        block-height='191px'
+        block-width='350px'
+        ></charts3>
+    </div>
+    </div>
+    <div class="total-mn" id="total-mn2">
+      <span id="topleft">后五名</span>
+    </div>
+    <div id="box1_bottom">
+      <div id="box4" class="box-echart">
+        <charts3
+        block-height='191px'
+        block-width='350px'
+        ></charts3>
+      </div>
+    </div>
     </Block>
     <Block
     left-title='报修频率前五'
     block-height='285px'
-    block-width='380px'
+    block-width='350px'
     block-left='15px'
-    block-top='-140px'
+    block-top='-160px'
     >
       <charts2
       block-height='285px'
-      block-width='380px'
+      block-width='350px'
       ></charts2>
     </Block>
     <Block
-    left-title='报修预约状况分布'
-    block-height='385px'
-    block-width='640px'
-    block-left='425px'
-    block-top='-725px'
+    left-title='报修预约热力图'
+    block-height='435px'
+    block-width='720px'
+    block-left='385px'
+    block-top='-845px'
     >
     <ul class="data-box1-data clearfix">
       <li class="data-box1-font1">预约总数</li>
       <li >
-        <div style="width: 7rem;">
+        <div style="width: 4.7rem;">
           <span id="zyy" class="data-box1-panel">50000</span>
           <span class="data-box1-font1">次</span>
         </div>
       </li>
       <li class="data-box1-font1">报修总数</li>
       <li >
-        <div style="width: 7rem;">
+        <div style="width: 4.7rem;">
           <span id="zbx" class="data-box1-panel">50000</span>
           <span class="data-box1-font1" >次</span>
         </div>
       </li>
-      <li class="data-box1-font1">今日预约</li>
+      <li class="data-box1-font1" style="margin-right: 0px;">今日预约</li>
       <li >
-        <div style="width: 7rem;">
-          <span id="jyy" class="data-box1-panel">50000</span>
-          <span class="data-box1-font1" >次</span>
-        </div>
-      </li>
-      <li class="data-box1-font1">今日报修</li>
-      <li >
-        <div style="width: 7rem;">
-          <span id="jbx" class="data-box1-panel">50000</span>
+        <div style="width: 8rem;">
+          <span id="jyy" class="data-box1-panel" >50</span>
+          <span class="data-box1-font1">次&nbsp;&nbsp;报修</span>
+          <span id="jbx" class="data-box1-panel">50</span>
           <span class="data-box1-font1" >次</span>
         </div>
       </li>
 		</ul>
     <charts4
-      block-height='365px'
-      block-width='620px'
+      block-height='415px'
+      block-width='700px'
     ></charts4>
     </Block>
     <Block
@@ -76,10 +90,10 @@
     block-height='220px'
     block-width='640px'
     block-left='425px'
-    block-top='-695px'
+    block-top='-815px'
     >
     <charts5
-      block-height='235px'
+      block-height='220px'
       block-width='630px'
     >
     </charts5>
@@ -87,9 +101,9 @@
     <Block
     left-title='实时维修预约处理率'
     block-height='215px'
-    block-width='400px'
-    block-left='1095px'
-    block-top='-1270px'
+    block-width='370px'
+    block-left='1125px'
+    block-top='-1440px'
     >
       <percentbar
         :barwidth='bardata[0]'
@@ -113,13 +127,13 @@
     <Block
     left-title='历年预约总数据统计'
     block-height='285px'
-    block-width='400px'
-    block-left='1095px'
-    block-top='-1240px'
+    block-width='370px'
+    block-left='1125px'
+    block-top='-1410px'
     >
     <charts1
     block-height='285px'
-    block-width='400px'
+    block-width='370px'
     ></charts1>
     </Block>
   </div>
@@ -155,10 +169,15 @@ export default {
       bardata: ['25%','69%','72%']
     }
   },
+  methods: {
+    back() {
+      window.history.go(-1)
+    }
+  },
   mounted:function () {
     let that=this;
-    // axios.get('../../../static/data/persent.json')
-    axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bar&m=ns_klny')
+    axios.get('../../../static/data/persent.json')
+    // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bar&m=ns_klny')
      .then(function (response) {
        document.getElementById('jyy').innerText=response.data[0][0]
        document.getElementById('jbx').innerText=response.data[1][0]
@@ -203,7 +222,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   height: 850px;
   margin-top: 10px;
 }
@@ -214,14 +232,29 @@ export default {
 .data-box1-data{
   display: inline-block;
   position: absolute;
-  left: 0.5rem;
-  top: 1.5rem;
-  width: 6rem;
+  left: -0.7rem;
+  top: 0.2rem;
+  width: 11.9rem;
 }
 .data-box1-font1{
-  font-size: 1.25rem;
+  font-size: 0.75rem;
+}
+#topleft{
+  font-size: 1.1rem;
+  color: #83c7e3;
+  position: absolute;
+  left: 0.7rem;
 }
 .data-box1-panel{
-  font-size: 1.25rem;
+  font-size: 0.75rem;
+}
+#box1_top{
+  height: 188px;
+}
+#box1_bottom{
+  height: 191px;
+}
+#box2{
+  height: 100%;
 }
 </style>

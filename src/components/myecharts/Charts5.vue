@@ -30,6 +30,12 @@ import axios from 'axios'
               color: 'rgba(38, 198, 248, 1)'
           },
           grid:{
+            top: 'middle',
+            left: '3%',
+            right: '4%',
+            bottom: '0%',
+            height: '70%',
+            containLabel: true,
             show:true,
             borderColor:"transparent",
             backgroundColor:'rgba(255,255,255,.2)'
@@ -43,7 +49,7 @@ import axios from 'axios'
           toolbox: {
               show : true,
               orient : 'vertical',
-              left: '90%',
+              left: '93%',
               top: 'top',
               feature : {
                 saveAsImage : {show: true}
@@ -90,7 +96,8 @@ import axios from 'axios'
           ]
         },
         chartcontainer:'',
-        chartData:[]
+        chartData:[],
+        datatimer:''
       }
     },
     watch: {
@@ -116,8 +123,8 @@ import axios from 'axios'
     methods: {
       seriesDate() {
         var that = this
-         // axios.get('../../../static/data/char5.json')
-         axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=ss&m=ns_klny')
+         axios.get('../../../static/data/char5.json')
+         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=ss&m=ns_klny')
           .then(function (response) {
             that.chartData=response.data;
           })
@@ -134,7 +141,12 @@ import axios from 'axios'
       this.chartcontainer.setOption(this.echarts1_option)
       //调用异步方法获取数据
       this.seriesDate()
+      //设置定时器每十秒自动刷新数据
+      this.datatimer=setInterval(this.seriesDate,10000)
     },
+    beforeDestroy() {
+      clearInterval(this.flashtimer)
+    }
  }
 </script>
 

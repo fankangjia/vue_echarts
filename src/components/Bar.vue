@@ -40,15 +40,15 @@
     }
     #bartitle{
         height: 100%;
-        width: 11%;
+        width: 13%;
         text-align: center;
         line-height: 28px;
         font-size: 16px;
         float: left;
     }
 		.lanren{
-            width: 88%;
-            margin-left: 12%;
+            width: 85%;
+            margin-left: 15%;
             border: 1px solid;
             height: 28px;
             }
