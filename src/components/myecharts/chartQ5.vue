@@ -156,7 +156,7 @@ import axios from 'axios'
       seriesDate() {
         var that = this
          axios.get('../../../static/data/cjr.json')
-         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=ss&m=ns_klny')
+         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bottom5&m=ns_klny')
           .then(function (response) {
             that.chartData=response.data;
           })

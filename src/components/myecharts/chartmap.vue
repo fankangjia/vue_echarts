@@ -30,7 +30,6 @@ import axios from 'axios'
                   color: '#ccc'
               }
           },
-
           tooltip: {
               trigger: 'item',
               formatter: function (params) {
@@ -66,7 +65,7 @@ import axios from 'axios'
               roam: true,
               itemStyle: {
                   normal: {
-                      areaColor: 'lightgreen',
+                      areaColor: 'green',
                       borderColor: '#3fdaff',
                       borderWidth: 2,
                       shadowColor: 'rgba(63, 218, 255, 0.5)',
@@ -144,12 +143,10 @@ import axios from 'axios'
         this.chartcontainer.setOption({
           series : [
             {
-                data: that.convertData(that.chartData),
+                data: that.convertData(newValue),
             },
             {
-                data: that.convertData(that.chartData.sort(function (a, b) {
-                    return b.value - a.value;
-                }).slice(0, 3)),
+                data: that.convertData(newValue),
             }
           ]
         })
@@ -184,7 +181,7 @@ import axios from 'axios'
     //挂载前初始化echarts实例
     mounted: function () {
       //导入地图数据
-      echarts.registerMap('xicheng',
+      echarts.registerMap('bh',
         {
           "features": [
               {

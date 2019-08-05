@@ -58,14 +58,14 @@
     <ul class="data-box1-data clearfix">
       <li class="data-box1-font1">预约总数</li>
       <li >
-        <div style="width: 4.7rem;">
+        <div style="width: 4.8rem;">
           <span id="zyy" class="data-box1-panel">50000</span>
           <span class="data-box1-font1">次</span>
         </div>
       </li>
       <li class="data-box1-font1">报修总数</li>
       <li >
-        <div style="width: 4.7rem;">
+        <div style="width: 4.8rem;">
           <span id="zbx" class="data-box1-panel">50000</span>
           <span class="data-box1-font1" >次</span>
         </div>
@@ -80,10 +80,10 @@
         </div>
       </li>
 		</ul>
-    <charts4
+    <chartmap
       block-height='415px'
       block-width='700px'
-    ></charts4>
+    ></chartmap>
     </Block>
     <Block
     left-title='近期预约趋势'
@@ -125,7 +125,7 @@
       </percentbar>
     </Block>
     <Block
-    left-title='历年预约总数据统计'
+    left-title='实时维修预约统计'
     block-height='285px'
     block-width='370px'
     block-left='1125px'
@@ -146,7 +146,7 @@ import Block from './components/Block'
 import Charts1 from './components/myecharts/Charts1'
 import Charts2 from './components/myecharts/Charts2'
 import Charts3 from './components/myecharts/Charts3'
-import Charts4 from './components/myecharts/Charts4'
+import chartmap from './components/myecharts/chartmap'
 import Charts5 from './components/myecharts/Charts5'
 import chartQ5 from './components/myecharts/chartQ5'
 import chartH5 from './components/myecharts/chartH5'
@@ -162,7 +162,7 @@ export default {
     Charts1,
     Charts2,
     Charts3,
-    Charts4,
+    chartmap,
     Charts5,
     chartQ5,
     chartH5,
@@ -170,51 +170,60 @@ export default {
   },
   data() {
     return {
-      bardata: ['25%','69%','72%']
+      bardata: ['25%','69%','72%'],
+      datatimer:''
     }
   },
   methods: {
-    back() {
-      window.history.go(-1)
-    }
-  },
-  mounted:function () {
-    let that=this;
-    axios.get('../../../static/data/persent.json')
-    // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bar&m=ns_klny')
-     .then(function (response) {
-       document.getElementById('jyy').innerText=response.data[0][0]
-       document.getElementById('jbx').innerText=response.data[1][0]
-       response.data[0]=response.data[0].map(Number)
-       response.data[1]=response.data[1].map(Number)
-       that.bardata=[]
-       if(response.data[0][0]<=0){
-         that.bardata[0]='0%'
-       }else{
-         if(response.data[0][1]<=0){
+    getData(){
+      let that=this;
+      axios.get('../../../static/data/persent.json')
+      // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bar&m=ns_klny')
+       .then(function (response) {
+         document.getElementById('jyy').innerText=response.data[0][0]
+         document.getElementById('jbx').innerText=response.data[1][0]
+         document.getElementById('zyy').innerText=response.data[2][0]
+         document.getElementById('zbx').innerText=response.data[2][1]
+         response.data[0]=response.data[0].map(Number)
+         response.data[1]=response.data[1].map(Number)
+         that.bardata=[]
+         if(response.data[0][0]<=0){
            that.bardata[0]='0%'
          }else{
-           that.bardata[0]=((response.data[0][1]/response.data[0][0])*100).toFixed(1).toString()+'%'
+           if(response.data[0][1]<=0){
+             that.bardata[0]='0%'
+           }else{
+             that.bardata[0]=((response.data[0][1]/response.data[0][0])*100).toFixed(1).toString()+'%'
+           }
          }
-       }
 
 
-       if(response.data[1][0]<=0){
-         that.bardata[1]='0%'
-         that.bardata[2]='0%'
-       }else{
-         if(response.data[1][2]<=0&&response.data[1][1]<=0){
+         if(response.data[1][0]<=0){
            that.bardata[1]='0%'
            that.bardata[2]='0%'
          }else{
-           that.bardata[1]=(((response.data[1][1]+response.data[1][2])/response.data[1][0])*100).toFixed(1).toString()+'%'
-           that.bardata[0]=((response.data[1][2]/response.data[1][0])*100).toFixed(1).toString()+'%'
+           if(response.data[1][2]<=0&&response.data[1][1]<=0){
+             that.bardata[1]='0%'
+             that.bardata[2]='0%'
+           }else{
+             that.bardata[1]=(((response.data[1][1]+response.data[1][2])/response.data[1][0])*100).toFixed(1).toString()+'%'
+             that.bardata[0]=((response.data[1][2]/response.data[1][0])*100).toFixed(1).toString()+'%'
+           }
          }
-       }
-            })
-     .catch(function (error) {
-       console.log(error)
-     });
+              })
+       .catch(function (error) {
+         console.log(error)
+       });
+    }
+  },
+  mounted:function () {
+    //获取数据
+    this.getData()
+    //设置定时器，每10秒刷新一次
+    this.datatimer=setInterval(this.getData,10000)
+  },
+  beforeDestroy() {
+    clearInterval(this.flashtimer)
   }
 }
 </script>

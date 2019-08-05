@@ -1,5 +1,6 @@
-<template>
-  <div id='myChart1' :style="{ width: blockWidth, height: blockHeight}"></div>
+<template >
+  <div id='myChart1' v-on:click="changeData" :style="{ width: blockWidth, height: blockHeight}">
+  </div>
 </template>
 
 <script>
@@ -37,15 +38,22 @@ import axios from 'axios'
                   saveAsImage : {show: true}
                 }
             },
-            graid:{
-              x:'20%',
-              x2:'10%',
+            grid: {
+                top: 'middle',
+                left: '5%',
+                right: '8%',
+                bottom: '0%',
+                height: '70%',
+                containLabel: true,
+                show:true,
+                borderColor:"transparent",
+                backgroundColor:'rgba(255,255,255,.1)'
             },
             textStyle: {
                 color: 'rgba(38, 198, 248, 1)'
             },
             legend: {
-              data: ['上午', '下午'],
+              data: ['预约完成', '预约未完成'],
               textStyle: {
                   color: 'rgba(38, 198, 248, 1)'
               }
@@ -75,7 +83,7 @@ import axios from 'axios'
             ],
             series: [
               {
-                name: '上午',
+                name: '预约完成',
                 type: 'bar',
                 "stack": '1',
                 label: {
@@ -91,7 +99,7 @@ import axios from 'axios'
                 data: []
               },
               {
-                name: '下午',
+                name: '预约未完成',
                 type: 'bar',
                 stack: '1',
                 label: {
@@ -109,35 +117,60 @@ import axios from 'axios'
             ]
         },
         chartcontainer:'',
-        chartData:[]
+        chartData:[],
+        datatimer:'',
+        timer:0,
+        datastatus:[
+          ['预约完成','预约未完成'],
+          ['报修完成','报修未完成']
+        ]
       }
     },
     watch: {
       chartData(newValue, oldValue) {
-        newValue[1]=newValue[1].map((x)=>String(Number(x)+2000))
-        this.chartcontainer.setOption({
-          series : [
-                {
-                  data:newValue[0]
-                },
-                {
-                  data:newValue[1]
-                }
-            ]
-        })
+        this.chartData=newValue
+        this.updatachart(this.timer)
       }
     },
     methods: {
       seriesDate() {
         var that = this
          axios.get('../../../static/data/y2.json')
-         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=aa&m=ns_klny')
+         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bb&m=ns_klny')
           .then(function (response) {
             that.chartData=response.data;
           })
           .catch(function (error) {
             console.log(error)
           });
+      },
+      changeData(){
+        let that=this
+        if(that.timer===0){
+          that.timer=1
+          this.updatachart(1)
+        }else{
+          that.timer=0
+          this.updatachart(0)
+        }
+      },
+      updatachart(a){
+        let that=this
+        this.chartcontainer.setOption({
+          legend: {
+            data: that.datastatus[a]
+          },
+          series : [
+                {
+                  name:that.datastatus[a][0],
+                  data:that.chartData[a][0]
+                },
+                {
+                  name:that.datastatus[a][1],
+                  data:that.chartData[a][1]
+                }
+            ]
+        })
       }
     },
     //挂载前初始化echarts实例
@@ -148,7 +181,12 @@ import axios from 'axios'
       this.chartcontainer.setOption(this.echarts1_option)
       //调用异步方法获取数据
       this.seriesDate()
+      //设置定时器每十秒自动刷新数据
+      this.datatimer=setInterval(this.seriesDate,10000)
     },
+    beforeDestroy() {
+      clearInterval(this.flashtimer)
+    }
  }
 </script>
 
