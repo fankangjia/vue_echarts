@@ -57,25 +57,30 @@
     >
     <ul class="data-box1-data clearfix">
       <li class="data-box1-font1">预约总数</li>
-      <li >
-        <div style="width: 4.8rem;">
+      <li class="data-box-number" >
+        <div style="width: 7rem;">
           <span id="zyy" class="data-box1-panel">50000</span>
           <span class="data-box1-font1">次</span>
         </div>
       </li>
       <li class="data-box1-font1">报修总数</li>
-      <li >
-        <div style="width: 4.8rem;">
+      <li  class="data-box-number">
+        <div style="width: 7rem;">
           <span id="zbx" class="data-box1-panel">50000</span>
           <span class="data-box1-font1" >次</span>
         </div>
       </li>
-      <li class="data-box1-font1" style="margin-right: 0px;">今日预约</li>
-      <li >
-        <div style="width: 8rem;">
-          <span id="jyy" class="data-box1-panel" >50</span>
-          <span class="data-box1-font1">次&nbsp;&nbsp;报修</span>
-          <span id="jbx" class="data-box1-panel">50</span>
+      <li class="data-box1-font1">今日预约</li>
+      <li  class="data-box-number">
+        <div style="width: 7rem;">
+          <span id="jyy" class="data-box1-panel">50000</span>
+          <span class="data-box1-font1" >次</span>
+        </div>
+      </li>
+      <li class="data-box1-font1">今日报修</li>
+      <li  class="data-box-number">
+        <div style="width: 7rem;">
+          <span id="jbx" class="data-box1-panel">50000</span>
           <span class="data-box1-font1" >次</span>
         </div>
       </li>
@@ -245,12 +250,12 @@ export default {
 .data-box1-data{
   display: inline-block;
   position: absolute;
-  left: -0.7rem;
-  top: 0.2rem;
-  width: 11.9rem;
+  left: 0rem;
+  top: 1rem;
+  width: 5rem;
 }
 .data-box1-font1{
-  font-size: 0.75rem;
+  font-size: 1rem;
 }
 #topleft{
   font-size: 1.1rem;
@@ -259,7 +264,11 @@ export default {
   left: 0.7rem;
 }
 .data-box1-panel{
-  font-size: 0.75rem;
+  font-size: 1rem;
+}
+.data-box-number{
+  position: relative;
+  margin-left: -0.7rem;
 }
 #box1_top{
   margin-top: 40px;
