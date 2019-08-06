@@ -124,8 +124,8 @@ import axios from 'axios'
     methods: {
       seriesDate() {
         var that = this
-         // axios.get('../../../static/data/ditu.json')
-         axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bb&m=ns_klny')
+         axios.get('../../../static/data/ditu.json')
+         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bb&m=ns_klny')
           .then(function (response) {
             that.chartData=response.data
             document.getElementById('zyy').innerText=response.data[0].map((x)=>(Number(x.value))).reduce((x,y)=>(x+y)).toString()

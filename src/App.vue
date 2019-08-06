@@ -182,8 +182,8 @@ export default {
   methods: {
     getData(){
       let that=this;
-      // axios.get('../../../static/data/persent.json')
-      axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bar&m=ns_klny')
+      axios.get('../../../static/data/persent.json')
+      // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bar&m=ns_klny')
        .then(function (response) {
          document.getElementById('jyy').innerText=response.data[0][0]
          document.getElementById('jbx').innerText=response.data[1][0]

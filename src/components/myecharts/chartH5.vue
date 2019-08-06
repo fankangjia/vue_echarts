@@ -187,8 +187,8 @@ import axios from 'axios'
     methods: {
       seriesDate() {
         var that = this
-         // axios.get('../../../static/data/cjr.json')
-         axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=top5&m=ns_klny')
+         axios.get('../../../static/data/cjr.json')
+         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=top5&m=ns_klny')
           .then(function (response) {
             that.chartData=response.data;
           })
