@@ -9,7 +9,7 @@
     <Block
     left-title='出警次数统计'
     block-height='424px'
-    block-width='350px'
+    block-width='370px'
     block-left='15px'
     block-top='-190px'
     >
@@ -20,7 +20,7 @@
       <div id="box2" class="box-echart box-bottom">
         <chartH5
         block-height='180px'
-        block-width='320px'
+        block-width='340px'
         ></chartH5>
     </div>
     </div>
@@ -31,7 +31,7 @@
       <div id="box4" class="box-echart">
         <chartQ5
         block-height='150px'
-        block-width='320px'
+        block-width='340px'
         ></chartQ5>
       </div>
     </div>
@@ -39,20 +39,20 @@
     <Block
     left-title='报修频率前五'
     block-height='285px'
-    block-width='350px'
+    block-width='370px'
     block-left='15px'
     block-top='-160px'
     >
       <charts2
       block-height='285px'
-      block-width='350px'
+      block-width='370px'
       ></charts2>
     </Block>
     <Block
-    left-title='报修预约热力图'
+    left-title='今日报修热力图'
     block-height='435px'
-    block-width='720px'
-    block-left='385px'
+    block-width='680px'
+    block-left='405px'
     block-top='-845px'
     >
     <ul class="data-box1-data clearfix">
@@ -105,9 +105,9 @@
     </Block>
     <Block
     left-title='实时维修预约处理率'
-    block-height='215px'
-    block-width='370px'
-    block-left='1125px'
+    block-height='216px'
+    block-width='390px'
+    block-left='1105px'
     block-top='-1440px'
     >
       <percentbar
@@ -132,13 +132,13 @@
     <Block
     left-title='实时维修预约统计'
     block-height='285px'
-    block-width='370px'
-    block-left='1125px'
+    block-width='390px'
+    block-left='1105px'
     block-top='-1410px'
     >
     <charts1
     block-height='285px'
-    block-width='370px'
+    block-width='390px'
     ></charts1>
     </Block>
   </div>
@@ -182,8 +182,8 @@ export default {
   methods: {
     getData(){
       let that=this;
-      axios.get('../../../static/data/persent.json')
-      // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bar&m=ns_klny')
+      // axios.get('../../../static/data/persent.json')
+      axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bar&m=ns_klny')
        .then(function (response) {
          document.getElementById('jyy').innerText=response.data[0][0]
          document.getElementById('jbx').innerText=response.data[1][0]
@@ -212,7 +212,7 @@ export default {
              that.bardata[2]='0%'
            }else{
              that.bardata[1]=(((response.data[1][1]+response.data[1][2])/response.data[1][0])*100).toFixed(1).toString()+'%'
-             that.bardata[0]=((response.data[1][2]/response.data[1][0])*100).toFixed(1).toString()+'%'
+             that.bardata[2]=((response.data[1][2]/response.data[1][0])*100).toFixed(1).toString()+'%'
            }
          }
               })

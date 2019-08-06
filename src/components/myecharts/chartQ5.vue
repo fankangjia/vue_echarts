@@ -143,7 +143,7 @@ import axios from 'axios'
           }],
           series : [
                 {
-                  data:[20*5]
+                  data:[10,10,10,10,10]
                 },
                 {
                   data:newValue.map((x)=>(x.value)).map(Number)
@@ -155,8 +155,8 @@ import axios from 'axios'
     methods: {
       seriesDate() {
         var that = this
-         axios.get('../../../static/data/cjr.json')
-         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bottom5&m=ns_klny')
+         // axios.get('../../../static/data/cjr.json')
+         axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bottom5&m=ns_klny')
           .then(function (response) {
             that.chartData=response.data;
           })

@@ -29,6 +29,9 @@ import axios from 'axios'
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
               }
             },
+            tooltip : {
+                trigger: 'axis'
+            },
             toolbox: {
                 show : true,
                 orient : 'vertical',
@@ -129,14 +132,18 @@ import axios from 'axios'
     watch: {
       chartData(newValue, oldValue) {
         this.chartData=newValue
+        this.chartData[0][1]=this.chartData[0][1].map((x)=>(x==0?x="":x))
+        this.chartData[0][0]=this.chartData[0][0].map((x)=>(x==0?x="":x))
+        this.chartData[1][1]=this.chartData[1][1].map((x)=>(x==0?x="":x))
+        this.chartData[1][0]=this.chartData[1][0].map((x)=>(x==0?x="":x))
         this.updatachart(this.timer)
       }
     },
     methods: {
       seriesDate() {
         var that = this
-         axios.get('../../../static/data/y2.json')
-         // axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bb&m=ns_klny')
+         // axios.get('../../../static/data/y2.json')
+         axios.get('http://b.fankangjia.top/web/index.php?c=site&a=entry&do=bb&m=ns_klny')
           .then(function (response) {
             that.chartData=response.data;
           })
